@@ -11,7 +11,6 @@ public class PartnerMatching {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column
     @ManyToOne
     @JoinColumn(name = "match_user_id")
     private PartnerUser matchUser;

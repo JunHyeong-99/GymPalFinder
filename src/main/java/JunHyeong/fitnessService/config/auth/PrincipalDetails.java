@@ -4,7 +4,11 @@ import JunHyeong.fitnessService.entity.Customer;
 import JunHyeong.fitnessService.entity.PartnerUser;
 import JunHyeong.fitnessService.entity.Trainer;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 public class PrincipalDetails implements UserDetails {
@@ -89,11 +93,18 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {  //해당 user의 권한을 리턴하는 곳이다.  리턴 타입이 Collection이기 때문에 user.getRole() 못함.
         Collection<GrantedAuthority> collet = new ArrayList<GrantedAuthority>();
-        collet.add(()->{ return user.getRole();});
+        if (customer != null) {
+            collet.add(()->{ return customer.getRole();});
+        }
+        else if(trainer != null) {
+            collet.add(()->{ return trainer.getRole();});
+        }
+        else {
+            collet.add(()->{ return partnerUser.getRole();});
+        }
         return collet;
     }
 
 
 
 }
-

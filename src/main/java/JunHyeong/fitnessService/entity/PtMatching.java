@@ -9,12 +9,10 @@ public class PtMatching {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private Trainer ptTrainer;
 
-    @Column
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer ptCustomer;

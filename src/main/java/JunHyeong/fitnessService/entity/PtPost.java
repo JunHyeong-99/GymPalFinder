@@ -9,7 +9,6 @@ public class PtPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     @OneToOne(mappedBy = "myPtPost")
     private Trainer ptTrainer;
 

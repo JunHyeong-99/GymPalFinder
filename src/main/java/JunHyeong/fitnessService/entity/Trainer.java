@@ -1,10 +1,7 @@
 package JunHyeong.fitnessService.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Trainer {
 
     @Id
@@ -32,10 +30,11 @@ public class Trainer {
     private String phoneNumber;
 
     @Column
+    private String role;
+
     @OneToMany(mappedBy = "ptTrainer")
     private List<PtMatching> myPtList = new ArrayList<>();
 
-    @Column
     @OneToOne
     @JoinColumn(name = "post_id")
     private PtPost myPtPost;

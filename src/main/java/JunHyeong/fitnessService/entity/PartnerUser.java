@@ -2,10 +2,7 @@ package JunHyeong.fitnessService.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PartnerUser {
 
     @Id
@@ -32,6 +30,8 @@ public class PartnerUser {
     private String phoneNumber;
 
     @Column
+    private String role;
+
     @OneToMany(mappedBy = "matchUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PartnerMatching> myMatchList = new ArrayList<>();
 

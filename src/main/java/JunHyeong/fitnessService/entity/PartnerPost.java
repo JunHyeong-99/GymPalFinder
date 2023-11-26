@@ -10,7 +10,6 @@ public class PartnerPost {
     private Long Id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column
     @JoinColumn(name = "register_id")
     private PartnerUser registerUser;
 
