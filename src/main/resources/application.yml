@@ -12,7 +12,7 @@ spring:
         format_sql: true
         show_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 #  mustache:
 #    prefix: classpath:/templates/
 #    suffix: .html
