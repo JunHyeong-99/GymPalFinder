@@ -4,8 +4,10 @@ import JunHyeong.fitnessService.dto.SignDto;
 import JunHyeong.fitnessService.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -13,6 +15,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SignController {
 
     private AuthService authService;
+
+    @GetMapping("/sign/trainer")
+    public String trainer_sign_page() {
+        return "registration/trainer_user_registration";
+    }
+
+    @GetMapping("/sign/customer")
+    public String customer_sign_page() {
+        return "registration/pt_user_registration";
+    }
+
+    @GetMapping("/sign/partner-user")
+    public String partner_user_sign_page() {
+        return "registration/partner_user_registration";
+    }
+
     @PostMapping("/sign/trainer")
     public String trainer_sign(HttpServletRequest httpServletRequest, Model model) {
         model.addAttribute("message", authService.trainer_sign(SignDto.builder()

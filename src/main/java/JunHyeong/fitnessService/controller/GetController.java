@@ -1,5 +1,6 @@
 package JunHyeong.fitnessService.controller;
 
+import JunHyeong.fitnessService.dto.LoginDto;
 import JunHyeong.fitnessService.dto.SignDto;
 import JunHyeong.fitnessService.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,14 +21,19 @@ public class GetController {
     public String mypageLogin() {
         return "/login/mypageLogin";
     }
-    @PostMapping("/mypage")
+    @PostMapping("/mypage") // 트레이너, 파트너 유저, 고객에 따른 나의 등록 post 관리?? //post에 email, password가 날라온다
     public String mypage(HttpServletRequest httpServletRequest, Model model) {
-        model.addAttribute("message", authService.trainer_sign(SignDto.builder()
+        boolean Login = authService.isLogin(LoginDto.builder()
                 .email(httpServletRequest.getParameter("email"))
-                .name(httpServletRequest.getParameter("name"))
-                .phoneNumber(httpServletRequest.getParameter("phoneNumber"))
                 .password(httpServletRequest.getParameter("password"))
-                .build()));
-        return "registration/after_sign";
+                .build());
+
+        if (Login) {
+
+        }
+        else {
+
+        }
+        return "registration/test";
     }
 }

@@ -1,10 +1,14 @@
 package JunHyeong.fitnessService.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class PartnerMatching {
 
     @Id

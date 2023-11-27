@@ -32,7 +32,12 @@ public class PartnerUser {
     @Column
     private String role;
 
+
     @OneToMany(mappedBy = "matchUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PartnerMatching> myMatchList = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_id")
+    private PartnerPost partnerPost;
 
 }

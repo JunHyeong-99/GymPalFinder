@@ -35,7 +35,7 @@ public class Trainer {
     @OneToMany(mappedBy = "ptTrainer")
     private List<PtMatching> myPtList = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_id")
     private PtPost myPtPost;
 }

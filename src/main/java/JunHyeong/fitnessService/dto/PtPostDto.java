@@ -6,8 +6,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class LoginDto {
-
+public class PtPostDto {
     private String email;
-    private String password;
+    private String title;
+    private String description;
+    private int price;
 }
