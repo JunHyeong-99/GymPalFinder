@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* (이하 스타일 코드는 동일) */
+    </style>
+    <title>Your Title Here</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            color: #555;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 18px;
+            color: #007bff;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .id-label,
+        .pw-label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .apply-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .apply-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 th:text="${title}">제목 </h1>
+    <p th:text="${description}"> 설명 </p>
+    <p>회당 가격 :<div class="price" th:text="${price}" >가격</div></p>
+    <p>전화번호 : <div th:text="${phone_number}">폰 번호</div> </p>
+
+
+    <form action="match-pt" method="post">
+
+        <p class="id-label">ID:</p>
+        <input type="text" class="input-field" id="id" name="id" placeholder="Enter your ID">
+
+        <p class="pw-label">Password:</p>
+        <input type="password" class="input-field" id="password" name="password" placeholder="Enter your password">
+        <input type="hidden" name="post_id" th:value="${post_id}">
+        <button type="submit" class="apply-btn">등록 하기</button>
+    </form>
+</div>
+
+</body>
+</html>
