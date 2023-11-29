@@ -61,5 +61,17 @@ public class MatchingService {
             return true;
         }
     }
+    
+    public boolean deletePartner(Long match_id) {
+        Optional<PartnerMatching> match = partnerMatchingRepository.findById(match_id);
+        if (match.isPresent()) {
+            partnerMatchingRepository.delete(match.get());
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
 
 }

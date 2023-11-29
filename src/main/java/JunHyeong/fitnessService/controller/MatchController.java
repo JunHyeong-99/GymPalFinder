@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.net.http.HttpRequest;
@@ -47,4 +49,17 @@ public class MatchController {
         }
         return "state";
     }
+
+    @PostMapping("/match-partner/delete")
+    public String delete_partner(HttpServletRequest httpServletRequest, Model model) {
+
+        if(matchingService.deletePartner(Long.parseLong(httpServletRequest.getParameter("match_id")))) {
+            model.addAttribute("message", "match가 삭제 되었습니다.");
+        }
+        else {
+            model.addAttribute("message", "match 삭제에 실패하셨습니다.");
+        }
+        return "state";
+    }
+
 }

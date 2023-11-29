@@ -55,8 +55,10 @@
     <div th:each="match : ${matchList}" class="post">
         <div>파트너 이름 : <h2 th:text="${match.match_username}" class="post-title"></h2></div>
         <div>파트너 전화번호 : <h2 th:text="${match.phone_number}" class="post-title"></h2></div>
-        <button class="delete-button" onclick="deleteMatch('${match.match_id}')">삭제</button>
-        </a>
+        <form action = "" th:action = "@{/match-partner/delete}" method="post">
+            <input type="hidden" name="match_id" th:value = "${match.match_id}" />
+            <button class="delete-button" type = "submit">삭제</button>
+        </form>
     </div>
 </div>
 
@@ -66,10 +68,11 @@
 
         if (confirmation) {
             // Fetch API를 사용하여 서버로 DELETE 요청을 보냅니다.
-            fetch('http://localhost:8080/delete/match/' + matchId, {
-                method: 'POST',
+            fetch('http://localhost:8080/match-partner/' + matchId, {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
                 },
             })
                 .then(response => {
