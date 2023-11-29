@@ -1,10 +1,8 @@
 package JunHyeong.fitnessService.controller;
 
-import JunHyeong.fitnessService.dto.LoginDto;
-import JunHyeong.fitnessService.dto.PartnerPostDetailDto;
-import JunHyeong.fitnessService.dto.PtPostDetailDto;
-import JunHyeong.fitnessService.dto.SignDto;
+import JunHyeong.fitnessService.dto.*;
 import JunHyeong.fitnessService.service.AuthService;
+import JunHyeong.fitnessService.service.MypageService;
 import JunHyeong.fitnessService.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -15,33 +13,57 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.Objects;
+
 @Controller
 @AllArgsConstructor
 public class GetController {
 
     private final AuthService authService;
     private final PostService postService;
+    private final MypageService mypageService;
 
 
-//    @GetMapping("/mypageLogin")
-//    public String mypageLogin() {
-//        return "/login/mypageLogin";
-//    }
-//    @PostMapping("/mypage") // 트레이너, 파트너 유저, 고객에 따른 나의 등록 post 관리?? //post에 email, password가 날라온다
-//    public String mypage(HttpServletRequest httpServletRequest, Model model) {
-//        boolean Login = authService.isLogin(LoginDto.builder()
-//                .email(httpServletRequest.getParameter("email"))
-//                .password(httpServletRequest.getParameter("password"))
-//                .build());
-//
-//        if (Login) {
-//
-//        }
-//        else {
-//
-//        }
-//        return "registration/test";
-//    }
+    @GetMapping("/mypageLogin")
+    public String mypageLogin() {
+        return "/login/mypageLogin";
+    }
+    @PostMapping("/mypage") // 트레이너, 파트너 유저, 고객에 따른 나의 등록 post 관리?? //post에 email, password가 날라온다
+    public String mypage(HttpServletRequest httpServletRequest, Model model) {
+        boolean Login = authService.isLogin(LoginDto.builder()
+                .email(httpServletRequest.getParameter("email"))
+                .password(httpServletRequest.getParameter("password"))
+                .build());
+
+        if (Login) {
+            String role;
+            role = httpServletRequest.getParameter("role");
+            if (Objects.equals(role, "ROLE_TRAINER")) {
+                List<MypageDto> mypageDto = mypageService.trainer_mypage(httpServletRequest.getParameter("email"));
+                model.addAttribute("matchList", mypageDto);
+                return "mypage/trainer_mypage";
+            }
+            else if (Objects.equals(role, "ROLE_CUSTOMER")) {
+                List<MypageDto> mypageDto = mypageService.customer_mypage(httpServletRequest.getParameter("email"));
+                model.addAttribute("matchList", mypageDto);
+                return "mypage/customer_mypage";
+            }
+            else if (Objects.equals(role, "ROLE_PARTNERUSER")){
+                List<MypageDto> mypageDto = mypageService.partner_mypage(httpServletRequest.getParameter("email"));
+                model.addAttribute("matchList", mypageDto);
+                return "mypage/partner_mypage";
+            }
+            else {
+                model.addAttribute("message", "ROLE을 찾을 수 없습니다..");
+                return "state";
+            }
+        }
+        else {
+            model.addAttribute("message", "아이디 비밀번호가 일치하지 않습니다.");
+            return "state";
+        }
+    }
     @GetMapping("trainer-post-list")
     public String trainer_list(Model model) { // model에 다 넣어주기
         model.addAttribute("postList", postService.getResponsePtPost());
