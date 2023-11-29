@@ -1,5 +1,6 @@
 package JunHyeong.fitnessService.controller;
 
+import JunHyeong.fitnessService.dto.PartnerMatchDto;
 import JunHyeong.fitnessService.dto.PtMatchDto;
 import JunHyeong.fitnessService.repository.PtMatchingRepository;
 import JunHyeong.fitnessService.service.MatchingService;
@@ -28,6 +29,21 @@ public class MatchController {
         }
         else {
             model.addAttribute("message", "트레이너와 매치에 실패했습니다.");
+        }
+        return "state";
+    }
+
+    @PostMapping("/match-partner")
+    public String match_partner(HttpServletRequest httpServletRequest, Model model) {
+        if (matchingService.matchPartner(PartnerMatchDto.builder()
+                .post_id(Long.parseLong(httpServletRequest.getParameter("post_id")))
+                .user_id(httpServletRequest.getParameter("id"))
+                .user_pwd(httpServletRequest.getParameter("password"))
+                .build())) {
+            model.addAttribute("message", "회원님과 매치되셨습니다.");
+        }
+        else {
+            model.addAttribute("message", "회원님과 매치에 실패했습니다.");
         }
         return "state";
     }

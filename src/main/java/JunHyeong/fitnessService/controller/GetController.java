@@ -1,6 +1,7 @@
 package JunHyeong.fitnessService.controller;
 
 import JunHyeong.fitnessService.dto.LoginDto;
+import JunHyeong.fitnessService.dto.PartnerPostDetailDto;
 import JunHyeong.fitnessService.dto.PtPostDetailDto;
 import JunHyeong.fitnessService.dto.SignDto;
 import JunHyeong.fitnessService.service.AuthService;
@@ -57,5 +58,20 @@ public class GetController {
         model.addAttribute("post_id", post_id);
         return "get_service/pt_post_Detail";
     }
-    //@GetMapping("post_")
+    @GetMapping("partner-post-list")
+    public String partner_list(Model model) { // model에 다 넣어주기
+        model.addAttribute("postList", postService.getResponsePartnerPost());
+        return "get_service/get_partner_list";
+    }
+
+    @GetMapping("partner-post-detali")
+    public String partner_post_detail(@RequestParam Long post_id, Model model) throws Exception {
+        PartnerPostDetailDto partnerPostDetail = postService.getPartnerPostDetail(post_id);
+        model.addAttribute("title", partnerPostDetail.getTitle());
+        model.addAttribute("weight_sum", partnerPostDetail.getWeight_sum());
+        model.addAttribute("description", partnerPostDetail.getDescription());
+        model.addAttribute("phone_number", partnerPostDetail.getPhone_number());
+        model.addAttribute("post_id", post_id);
+        return "get_service/partner_post_Detail";
+    }
 }

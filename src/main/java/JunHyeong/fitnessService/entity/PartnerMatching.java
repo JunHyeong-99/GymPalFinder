@@ -2,6 +2,7 @@ package JunHyeong.fitnessService.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -9,15 +10,17 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PartnerMatching {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @ManyToOne
-    @JoinColumn(name = "match_user_id")
-    private PartnerUser matchUser;
+    @Column
+    private Long user1;
 
+    @Column
+    private Long user2;
 
 }

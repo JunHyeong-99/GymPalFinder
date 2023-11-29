@@ -2,14 +2,11 @@ package JunHyeong.fitnessService.service;
 
 
 import JunHyeong.fitnessService.dto.LoginDto;
+import JunHyeong.fitnessService.dto.PartnerMatchDto;
 import JunHyeong.fitnessService.dto.PtMatchDto;
 import JunHyeong.fitnessService.dto.PtPostResponseDto;
-import JunHyeong.fitnessService.entity.Customer;
-import JunHyeong.fitnessService.entity.PtMatching;
-import JunHyeong.fitnessService.entity.PtPost;
-import JunHyeong.fitnessService.repository.CustomerRepository;
-import JunHyeong.fitnessService.repository.PtMatchingRepository;
-import JunHyeong.fitnessService.repository.PtPostRepository;
+import JunHyeong.fitnessService.entity.*;
+import JunHyeong.fitnessService.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +22,9 @@ public class MatchingService {
     private final AuthService authService;
     private final PtMatchingRepository ptMatchingRepository;
     private final PtPostRepository ptPostRepository;
+    private final PartnerUserRepository partnerUserRepository;
+    private final PartnerPostRepository partnerPostRepository;
+    private final PartnerMatchingRepository partnerMatchingRepository;
 
     public boolean matchPt(PtMatchDto ptMatchDto) {
         if(!authService.isLogin(LoginDto.builder() // 로그인 실패한 경우
@@ -43,4 +43,23 @@ public class MatchingService {
             return true;
         }
     }
+    public boolean matchPartner(PartnerMatchDto partnerMatchDto) {
+        if(!authService.isLogin(LoginDto.builder() // 로그인 실패한 경우
+                .email(partnerMatchDto.getUser_id())
+                .password(partnerMatchDto.getUser_pwd()).build())){
+            return false;
+        }
+        else { // customer 구하고 trainer 구하고 matching에 넣기
+            Optional<PartnerUser> partnerUser = partnerUserRepository.findByEmail(partnerMatchDto.getUser_id());
+            Optional<PartnerPost> partnerPost = partnerPostRepository.findById(partnerMatchDto.getPost_id());
+
+            // PartnerMatching은 2개를 만들어 각 user에 할당을 해주어야 한다.
+            partnerMatchingRepository.save(PartnerMatching.builder()
+                    .user1(partnerPost.get().getRegisterUser().getId())
+                    .user2(partnerUser.get().getId())
+                    .build());
+            return true;
+        }
+    }
+
 }
