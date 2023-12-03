@@ -34,7 +34,16 @@ public class MatchController {
         }
         return "state";
     }
-
+    @PostMapping("/match-pt/delete")
+    public String delete_pt(HttpServletRequest httpServletRequest, Model model) {
+        if(matchingService.deletePt(Long.parseLong(httpServletRequest.getParameter("match_id")))) {
+            model.addAttribute("message", "Pt가 삭제 되었습니다.");
+        }
+        else {
+            model.addAttribute("message", "Pt 삭제를 실패했습니다.");
+        }
+        return "state";
+    }
     @PostMapping("/match-partner")
     public String match_partner(HttpServletRequest httpServletRequest, Model model) {
         if (matchingService.matchPartner(PartnerMatchDto.builder()

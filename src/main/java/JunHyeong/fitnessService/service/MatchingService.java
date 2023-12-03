@@ -74,4 +74,14 @@ public class MatchingService {
 
     }
 
+    public boolean deletePt(Long match_id) {
+        Optional<PtMatching> pt = ptMatchingRepository.findById(match_id);
+        if(pt.isPresent()) {
+            ptMatchingRepository.delete(pt.get());
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

@@ -55,9 +55,12 @@
     <div th:each="match : ${matchList}" class="post">
         <div>트레이너 이름 : <h2 th:text="${match.match_username}" class="post-title"></h2></div>
         <div>트레이너 전화번호 : <h2 th:text="${match.phone_number}" class="post-title"></h2></div>
-        <button class="delete-button" onclick="deleteMatch('${match.match_id}')">삭제</button>
-        </a>
+        <form action = "" th:action = "@{/match-pt/delete}" method="post">
+            <input type="hidden" name="match_id" th:value = "${match.match_id}" />
+            <button class="delete-button" type = "submit">삭제</button>
+        </form>
     </div>
+    <a href = "http://localhost:8080/index.html">홈으로</a>
 </div>
 
 <script>

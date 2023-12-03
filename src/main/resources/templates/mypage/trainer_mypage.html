@@ -55,37 +55,14 @@
     <div th:each="match : ${matchList}" class="post">
             <div>고객 이름 : <h2 th:text="${match.match_username}" class="post-title"></h2></div>
             <div>고객 전화번호 : <h2 th:text="${match.phone_number}" class="post-title"></h2></div>
-            <button class="delete-button" onclick="deleteMatch('${match.match_id}')">삭제</button>
+            <form action = "" th:action = "@{/match-pt/delete}" method="post">
+                <input type="hidden" name="match_id" th:value = "${match.match_id}" />
+                <button class="delete-button" type = "submit">삭제</button>
+            </form>
     </div>
+    <a href = "http://localhost:8080/index.html">홈으로</a>
 </div>
 
-<script>
-    function deleteMatch(matchId) {
-        var confirmation = confirm("정말 삭제하시겠습니까?");
 
-        if (confirmation) {
-            // Fetch API를 사용하여 서버로 DELETE 요청을 보냅니다.
-            fetch('http://localhost:8080/delete/match/' + matchId, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('서버 응답이 실패했습니다.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    alert('삭제 요청이 성공적으로 처리되었습니다.');
-                })
-                .catch((error) => {
-                    console.error('삭제 요청 중 오류 발생:', error);
-                    alert('삭제 요청 중 오류가 발생했습니다.');
-                });
-        }
-    }
-</script>
 </body>
 </html>
