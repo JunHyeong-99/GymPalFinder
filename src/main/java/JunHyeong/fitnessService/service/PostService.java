@@ -29,7 +29,7 @@ public class PostService {
 
     public List<PtPostResponseDto> getResponsePtPost() {
         List<PtPostResponseDto> post_list = new ArrayList<>();
-        List<PtPost> AllPtPost = ptPostRepository.findAll();
+        List<PtPost> AllPtPost = ptPostRepository.findAllByOrderByPrice();
         for (PtPost ptPost : AllPtPost) {
             post_list.add(ptPost.toResponsePostDto());
         }
