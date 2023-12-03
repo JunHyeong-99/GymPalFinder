@@ -69,6 +69,7 @@ public class RegistController {
                 .title(httpServletRequest.getParameter("title"))
                 .description(httpServletRequest.getParameter("description"))
                 .weight_sum(Integer.parseInt(httpServletRequest.getParameter("weight_sum")))
+                .want_gender(httpServletRequest.getParameter("gender"))
                 .build())) {
             model.addAttribute("message", "partner post등록에 성공했습니다.");
         }

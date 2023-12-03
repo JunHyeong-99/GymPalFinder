@@ -5,6 +5,7 @@ import JunHyeong.fitnessService.dto.PartnerPostDetailDto;
 import JunHyeong.fitnessService.dto.PartnerPostResponseDto;
 import JunHyeong.fitnessService.dto.PtPostDetailDto;
 import JunHyeong.fitnessService.dto.PtPostResponseDto;
+import JunHyeong.fitnessService.entity.Gender;
 import JunHyeong.fitnessService.entity.PartnerPost;
 import JunHyeong.fitnessService.entity.PtPost;
 import JunHyeong.fitnessService.repository.PartnerPostRepository;
@@ -55,6 +56,29 @@ public class PostService {
         return post_list;
     }
 
+    public List<PartnerPostResponseDto> getResponseMalePartnerPost() {
+        List<PartnerPostResponseDto> post_list = new ArrayList<>();
+        List<PartnerPost> AllPartnerPost = partnerPostRepository.findAllByWantGender("male");
+        for (PartnerPost partnerPost : AllPartnerPost) {
+//            if (partnerPost.getRegisterUser().getGender() == Gender.MALE) {
+//                post_list.add(partnerPost.toResponsePostDto());
+//            }
+            post_list.add(partnerPost.toResponsePostDto());
+        }
+        return post_list;
+    }
+
+    public List<PartnerPostResponseDto> getResponseFemalePartnerPost() {
+        List<PartnerPostResponseDto> post_list = new ArrayList<>();
+        List<PartnerPost> AllPartnerPost = partnerPostRepository.findAllByWantGender("female");
+        for (PartnerPost partnerPost : AllPartnerPost) {
+//            if (partnerPost.getRegisterUser().getGender() == Gender.FEMALE) {
+//                post_list.add(partnerPost.toResponsePostDto());
+//            }
+            post_list.add(partnerPost.toResponsePostDto());
+        }
+        return post_list;
+    }
     public PartnerPostDetailDto getPartnerPostDetail(Long post_id) throws Exception {
         Optional<PartnerPost> partnerPost = partnerPostRepository.findById(post_id);
         if(partnerPost.isEmpty()) throw new Exception("post가 없습니다.");

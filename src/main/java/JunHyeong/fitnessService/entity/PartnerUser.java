@@ -29,6 +29,9 @@ public class PartnerUser {
     @Column
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     @Column
     private String role;
 

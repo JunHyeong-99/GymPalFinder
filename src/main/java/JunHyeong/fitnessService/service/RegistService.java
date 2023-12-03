@@ -52,6 +52,7 @@ public class RegistService {
                 .weight_sum(partnerPostDto.getWeight_sum())
                 .description(partnerPostDto.getDescription())
                 .registerUser(partnerUser.get())
+                .wantGender(partnerPostDto.getWant_gender())
                 .build();
         partnerPostRepository.save(partnerPost);
         partnerUser.get().setPartnerPost(partnerPost);

@@ -17,4 +17,6 @@ public class PartnerPostDto {
     private String description;
 
     private int weight_sum;
+
+    private String want_gender;
 }

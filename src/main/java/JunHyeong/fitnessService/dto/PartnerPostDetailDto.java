@@ -10,5 +10,6 @@ public class PartnerPostDetailDto {
     private String description;
     private int weight_sum;
     private String phone_number;
+    private String want_gender;
 }
 

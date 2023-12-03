@@ -1,5 +1,6 @@
 package JunHyeong.fitnessService.dto;
 
+import JunHyeong.fitnessService.entity.Gender;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,4 +11,5 @@ public class SignDto {
     private String password;
     private String name;
     private String phoneNumber;
+    private Gender gender;
 }

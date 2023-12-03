@@ -31,12 +31,15 @@ public class PartnerPost {
     @Column //3대 중량
     private int weight_sum;
 
+    @Column
+    private String wantGender;
 
     public PartnerPostResponseDto toResponsePostDto() {
         return PartnerPostResponseDto.builder()
                 .post_id(this.getId())
                 .weight_sum(this.getWeight_sum())
                 .title(this.getTitle())
+                .want_gender(this.wantGender)
                 .build();
     }
 

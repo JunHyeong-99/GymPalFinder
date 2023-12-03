@@ -1,6 +1,7 @@
 package JunHyeong.fitnessService.controller;
 
 import JunHyeong.fitnessService.dto.SignDto;
+import JunHyeong.fitnessService.entity.Gender;
 import JunHyeong.fitnessService.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Objects;
 
 @Controller
 @AllArgsConstructor
@@ -54,11 +57,16 @@ public class SignController {
     }
     @PostMapping("/sign/partner-user")
     public String partner_user_sign(HttpServletRequest httpServletRequest, Model model) {
+        Gender user_gender;
+        if (Objects.equals(httpServletRequest.getParameter("gender"), "male"))
+            user_gender = Gender.MALE;
+        else user_gender = Gender.FEMALE;
         model.addAttribute("message", authService.partnerUser_sign(SignDto.builder()
                 .email(httpServletRequest.getParameter("email"))
                 .name(httpServletRequest.getParameter("name"))
                 .phoneNumber(httpServletRequest.getParameter("phoneNumber"))
                 .password(httpServletRequest.getParameter("password"))
+                .gender(user_gender)
                 .build()));
         return "registration/after_sign";
     }

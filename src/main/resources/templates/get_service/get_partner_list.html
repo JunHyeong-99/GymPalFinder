@@ -13,9 +13,29 @@
 
         .post-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Updated to column */
             align-items: center;
             height: 100vh;
+        }
+
+        .toggle-buttons {
+            margin-bottom: 20px;
+        }
+
+        .toggle-button {
+            padding: 8px 16px;
+            margin: 0 8px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none; /* Added to remove underline */
+        }
+
+        .toggle-button:hover {
+            background-color: #45a049;
         }
 
         .post {
@@ -46,19 +66,29 @@
             font-size: 18px;
             color: #e44d26;
         }
-
-
     </style>
 </head>
 <body>
-<div class="post">
+<div class="toggle-buttons">
+    <a href="http://localhost:8080/partner-post-list" class="toggle-button" >전체</a>
+    <a href="http://localhost:8080/partner-post-list/male" class="toggle-button" >남자</a>
+    <a href="http://localhost:8080/partner-post-list/female" class="toggle-button" >여자</a>
+</div>
+<div class="post-container">
     <div th:each="post : ${postList}" class="post">
         <a th:href="@{'http://localhost:8080/partner-post-detali?post_id=' + ${post.post_id}}" class="post-link">
-            <h2 th:text="${post.title}" class="post-title"></h2>
-            <p th:text="'$' + ${post.weight_sum}" class="post-price"></p>
+            <h2 th:text="'제목: ' + ${post.title}" class="post-title"></h2>
+            <p th:text="'삼대 중량: ' + ${post.weight_sum}" class="post-price"></p>
         </a>
     </div>
     <!-- 다른 게시물 내용 등 -->
 </div>
+<script>
+    function filterPosts(category) {
+        // Add logic to filter posts based on the selected category
+        // You may need to fetch posts from the server or hide/show them based on the category
+        console.log('Filter posts by category:', category);
+    }
+</script>
 </body>
 </html>

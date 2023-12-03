@@ -10,4 +10,5 @@ public class PartnerPostResponseDto {
     private Long post_id;
     private String title;
     private int weight_sum;
+    private String want_gender;
 }

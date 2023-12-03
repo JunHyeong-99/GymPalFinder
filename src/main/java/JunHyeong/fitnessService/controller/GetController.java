@@ -86,6 +86,18 @@ public class GetController {
         return "get_service/get_partner_list";
     }
 
+    @GetMapping("partner-post-list/male")
+    public String partner_list_male(Model model) { // model에 다 넣어주기
+        model.addAttribute("postList", postService.getResponseMalePartnerPost());
+        return "get_service/get_partner_list";
+    }
+
+    @GetMapping("partner-post-list/female")
+    public String partner_list_female(Model model) { // model에 다 넣어주기
+        model.addAttribute("postList", postService.getResponseFemalePartnerPost());
+        return "get_service/get_partner_list";
+    }
+
     @GetMapping("partner-post-detali")
     public String partner_post_detail(@RequestParam Long post_id, Model model) throws Exception {
         PartnerPostDetailDto partnerPostDetail = postService.getPartnerPostDetail(post_id);
