@@ -5,10 +5,8 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ReviewDto {
+public class ReviewResponseDto {
+    private Long review_id;
     private String body;
     private int point;
-    private Long match_id;
-
-
 }

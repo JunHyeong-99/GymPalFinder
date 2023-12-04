@@ -1,5 +1,7 @@
 package JunHyeong.fitnessService.entity;
 
+import JunHyeong.fitnessService.dto.PtPostResponseDto;
+import JunHyeong.fitnessService.dto.ReviewResponseDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +26,15 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
+
+
+    public ReviewResponseDto toResponsePostDto() {
+        return ReviewResponseDto.builder()
+                .review_id(this.id)
+                .body(this.body)
+                .point(this.point)
+                .build();
+    }
+
+
 }

@@ -82,7 +82,7 @@
     <p>회당 가격 :<div class="price" th:text="${price}" >가격</div></p>
     <p>전화번호 : <div th:text="${phone_number}">폰 번호</div> </p>
 
-
+    <a th:href="@{'http://localhost:8080/review?post_id=' + ${post_id}}"> 리뷰 보기</a>
     <form action="match-pt" method="post">
 
         <p class="id-label">ID:</p>

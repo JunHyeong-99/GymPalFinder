@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Review Display</title>
+</head>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .review-card h3 {
+        margin-bottom: 10px;
+    }
+
+    .review-card p {
+        margin: 0;
+    }
+
+    .highlight {
+        color: #007bff; /* Highlight color */
+        font-weight: bold;
+    }
+
+    .body {
+        color: #333;
+    }
+
+    .point {
+        color: #28a745; /* Green color for points */
+    }
+
+</style>
+<body>
+
+<div class="container">
+    <h2>Review Details</h2>
+
+    <div th:each="review : ${reviewList}">
+        <div class="review-card">
+            <h3>Review ID: <span class="highlight" th:text="${review.review_id}">12345</span></h3>
+            <p class="body" th:text="${review.body}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec urna et nunc euismod lacinia.</p>
+                <p class="point" >Point: <span class="highlight" th:text="${review.point}">3</span></p>
+        </div>
+    </div>
+    <button onclick="goBack()">뒤로 가기</button>
+
+</div>
+
+</body>
+</html>
