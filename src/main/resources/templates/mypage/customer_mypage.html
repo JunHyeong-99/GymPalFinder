@@ -11,12 +11,6 @@
             background-color: #f4f4f4;
         }
 
-        .post-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
 
         .post {
             background-color: #fff;
@@ -31,10 +25,6 @@
             transform: translateY(-5px);
         }
 
-        .post-link {
-            text-decoration: none;
-            color: #333;
-        }
 
         .post-title {
             font-size: 24px;
@@ -42,10 +32,6 @@
             margin-bottom: 10px;
         }
 
-        .post-price {
-            font-size: 18px;
-            color: #e44d26;
-        }
 
 
     </style>
@@ -55,6 +41,10 @@
     <div th:each="match : ${matchList}" class="post">
         <div>트레이너 이름 : <h2 th:text="${match.match_username}" class="post-title"></h2></div>
         <div>트레이너 전화번호 : <h2 th:text="${match.phone_number}" class="post-title"></h2></div>
+        <form action = "" th:action = "@{/match-pt/review}" method="get">
+            <input type="hidden" name="match_id" th:value = "${match.match_id}" />
+            <button class="review-button" type = "submit">리뷰 추가</button>
+        </form>
         <form action = "" th:action = "@{/match-pt/delete}" method="post">
             <input type="hidden" name="match_id" th:value = "${match.match_id}" />
             <button class="delete-button" type = "submit">삭제</button>
