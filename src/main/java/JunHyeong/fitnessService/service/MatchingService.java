@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -26,25 +27,25 @@ public class MatchingService {
     private final PartnerPostRepository partnerPostRepository;
     private final PartnerMatchingRepository partnerMatchingRepository;
 
-    public boolean matchPt(PtMatchDto ptMatchDto) {
+    public String matchPt(PtMatchDto ptMatchDto) {
         if(!authService.isLogin(LoginDto.builder() // 로그인 실패한 경우
                         .email(ptMatchDto.getUser_id())
                 .password(ptMatchDto.getUser_pwd()).build())){
-            return false;
+            return "아이디, 비밀번호가 일치하지 않습니다.";
         }
         else { // customer 구하고 trainer 구하고 matching에 넣기
             Optional<Customer> customer = customerRepository.findByEmail(ptMatchDto.getUser_id());
             Optional<PtPost> ptPost = ptPostRepository.findById(ptMatchDto.getPost_id());
-            if(ptPost.isEmpty() || customer.isPresent()) return false;
+            if(ptPost.isEmpty() || customer.isPresent()) return "존재하지 않는 post입니다.";
             Optional<PtMatching> originMatch = ptMatchingRepository.findByTrainerAndCoustomer(ptPost.get().getPtTrainer(), customer.get());
             if(originMatch.isPresent()) {
-                return false;
+                return "이미 등록된 match입니다.";
             }
             ptMatchingRepository.save(PtMatching.builder()
                     .ptCustomer(customer.get())
                     .ptTrainer(ptPost.get().getPtTrainer())
                     .build());
-            return true;
+            return "pt등록에 성공하셨습니다.";
         }
     }
     public String matchPartner(PartnerMatchDto partnerMatchDto) {
@@ -58,6 +59,9 @@ public class MatchingService {
             Optional<PartnerPost> partnerPost = partnerPostRepository.findById(partnerMatchDto.getPost_id());
             if(partnerUser.isEmpty() || partnerPost.isEmpty()) return "post가 존재하지 않습니다.";
             PartnerUser registerUser = partnerPost.get().getRegisterUser();
+            if (Objects.equals(partnerUser.get().getId(), registerUser.getId())) {
+                return "자기 자신은 match하실 수 없습니다.";
+            }
             Optional<PartnerMatching> originMatch1 = partnerMatchingRepository.findByUser1AndUser2(partnerUser.get().getId(), registerUser.getId());
             Optional<PartnerMatching> originMatch2 = partnerMatchingRepository.findByUser1AndUser2(registerUser.getId(), partnerUser.get().getId());
             if (originMatch1.isPresent() || originMatch2.isPresent()) {

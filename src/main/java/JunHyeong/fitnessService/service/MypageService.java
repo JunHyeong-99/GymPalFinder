@@ -60,7 +60,6 @@ public class MypageService {
 
         matchingList.addAll(partnerMatchingRepository.findAllByUser1(myUser.get().getId()));
         matchingList.addAll(partnerMatchingRepository.findAllByUser2(myUser.get().getId()));
-        System.out.println(matchingList.size()+"testestes");
         for (PartnerMatching myMatching : matchingList) {
             Optional<PartnerUser> partner = partnerUserRepository.findById(myMatching.getUser2());
             mypageList.add(MypageDto.builder()
