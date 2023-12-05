@@ -11,13 +11,6 @@
             background-color: #f4f4f4;
         }
 
-        .post-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
         .post {
             background-color: #fff;
             padding: 20px;
@@ -31,22 +24,12 @@
             transform: translateY(-5px);
         }
 
-        .post-link {
-            text-decoration: none;
-            color: #333;
-        }
 
         .post-title {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 10px;
         }
-
-        .post-price {
-            font-size: 18px;
-            color: #e44d26;
-        }
-
 
     </style>
 </head>
@@ -63,34 +46,5 @@
     <a href = "http://localhost:8080/index.html">홈으로</a>
 </div>
 
-<script>
-    function deleteMatch(matchId) {
-        var confirmation = confirm("정말 삭제하시겠습니까?");
-
-        if (confirmation) {
-            // Fetch API를 사용하여 서버로 DELETE 요청을 보냅니다.
-            fetch('http://localhost:8080/match-partner/' + matchId, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken,
-                },
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('서버 응답이 실패했습니다.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    alert('삭제 요청이 성공적으로 처리되었습니다.');
-                })
-                .catch((error) => {
-                    console.error('삭제 요청 중 오류 발생:', error);
-                    alert('삭제 요청 중 오류가 발생했습니다.');
-                });
-        }
-    }
-</script>
 </body>
 </html>

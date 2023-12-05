@@ -1,6 +1,7 @@
 package JunHyeong.fitnessService.service;
 
 import JunHyeong.fitnessService.dto.LoginDto;
+import JunHyeong.fitnessService.dto.ResignDto;
 import JunHyeong.fitnessService.dto.SignDto;
 import JunHyeong.fitnessService.entity.Customer;
 import JunHyeong.fitnessService.entity.PartnerUser;
@@ -89,5 +90,30 @@ public class AuthService {
         partnerUserRepository.save(new_partnerUser);
 
         return "회원 가입에 성공하셨습니다.";
+    }
+
+    public String resign(ResignDto resignDto) {
+        if (!isLogin(LoginDto.builder()
+                .email(resignDto.getEmail())
+                .password(resignDto.getPassword())
+                .build())) return "아이디, 비밀번호가 일치하지 않습니다.";
+        if(Objects.equals(resignDto.getUserType(), "trainer")) {
+            Optional<Trainer> trainer = trainerRepository.findByEmail(resignDto.getEmail());
+            if(trainer.isEmpty()) return "트레이너를 찾을 수 없습니다.";
+            trainerRepository.delete(trainer.get());
+            return "회원이 탈퇴되었습니다.";
+        }
+        else if(Objects.equals(resignDto.getUserType(), "customer")) {
+            Optional<Customer> customer = customerRepository.findByEmail(resignDto.getEmail());
+            if(customer.isEmpty()) return "고객님을 찾을 수 없습니다.";
+            customerRepository.delete(customer.get());
+            return "회원이 탈퇴되었습니다.";
+        }
+        else {
+            Optional<PartnerUser> partnerUser = partnerUserRepository.findByEmail(resignDto.getEmail());
+            if(partnerUser.isEmpty()) return "고객님을 찾을 수 없습니다.";
+            partnerUserRepository.delete(partnerUser.get());
+            return "회원이 탈퇴되었습니다.";
+        }
     }
 }

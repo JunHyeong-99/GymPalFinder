@@ -44,6 +44,39 @@
         margin-top: 3px;
     }
 
+    .radio-group {
+        display: flex;
+        margin-bottom: 15px;
+    }
+
+    .radio-group label {
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+
+    .radio-group input {
+        margin-right: 5px;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #4caf50;
+        border-radius: 50%;
+        outline: none;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .radio-group input:checked {
+        background-color: #4caf50;
+        border: 2px solid #4caf50;
+    }
+
+    .radio-group span {
+        font-weight: normal;
+    }
+
     button {
         background-color: #4caf50;
         color: #fff;
@@ -56,7 +89,6 @@
     button:hover {
         background-color: #45a049;
     }
-
 </style>
 <head>
     <meta charset="UTF-8">
@@ -67,7 +99,7 @@
 <body>
 
 <div class="signup-container">
-    <form class="signup-form" action="" th:action = "@{/sign/partner-user}" method="post">
+    <form class="signup-form" action="" th:action="@{/sign/partner-user}" method="post">
         <h2>파트너 유저 회원가입</h2>
         <div class="form-group">
             <label for="email">이메일:</label>
@@ -87,10 +119,16 @@
         </div>
         <div class="form-group">
             <label>성별:</label>
-            <input type="radio" id="male" name="gender" value="male" required>
-            <label for="male">남자</label>
-            <input type="radio" id="female" name="gender" value="female" required>
-            <label for="female">여자</label>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="gender" value="male" required>
+                    <span>남자</span>
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female" required>
+                    <span>여자</span>
+                </label>
+            </div>
         </div>
         <button type="submit">가입하기</button>
     </form>

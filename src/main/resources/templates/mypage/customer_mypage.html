@@ -53,32 +53,5 @@
     <a href = "http://localhost:8080/index.html">홈으로</a>
 </div>
 
-<script>
-    function deleteMatch(matchId) {
-        var confirmation = confirm("정말 삭제하시겠습니까?");
-
-        if (confirmation) {
-            fetch('http://localhost:8080/match-partner/' + matchId, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('서버 응답이 실패했습니다.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    alert('삭제 요청이 성공적으로 처리되었습니다.');
-                })
-                .catch((error) => {
-                    console.error('삭제 요청 중 오류 발생:', error);
-                    alert('삭제 요청 중 오류가 발생했습니다.');
-                });
-        }
-    }
-</script>
 </body>
 </html>

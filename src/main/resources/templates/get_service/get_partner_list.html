@@ -13,7 +13,7 @@
 
         .post-container {
             display: flex;
-            flex-direction: column; /* Updated to column */
+            flex-direction: column;
             align-items: center;
             height: 100vh;
         }
@@ -31,7 +31,7 @@
             font-size: 14px;
             background-color: #4CAF50;
             color: white;
-            text-decoration: none; /* Added to remove underline */
+            text-decoration: none;
         }
 
         .toggle-button:hover {
@@ -81,14 +81,6 @@
             <p th:text="'삼대 중량: ' + ${post.weight_sum}" class="post-price"></p>
         </a>
     </div>
-    <!-- 다른 게시물 내용 등 -->
 </div>
-<script>
-    function filterPosts(category) {
-        // Add logic to filter posts based on the selected category
-        // You may need to fetch posts from the server or hide/show them based on the category
-        console.log('Filter posts by category:', category);
-    }
-</script>
 </body>
 </html>

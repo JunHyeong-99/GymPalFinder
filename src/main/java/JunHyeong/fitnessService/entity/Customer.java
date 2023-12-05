@@ -33,6 +33,6 @@ public class Customer {
     @Column
     private String role;
 
-    @OneToMany(mappedBy = "ptCustomer")
+    @OneToMany(mappedBy = "ptCustomer", cascade = CascadeType.ALL)
     private List<PtMatching> myTrainerList = new ArrayList<>();
 }
