@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,6 +69,21 @@
         .apply-btn:hover {
             background-color: #0056b3;
         }
+
+        a.home-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        a.home-link:hover {
+            background-color: #333;
+        }
     </style>
 </head>
 <body>
@@ -90,6 +105,8 @@
         <input type="hidden" name="post_id" th:value="${post_id}">
         <button type="submit" class="apply-btn">등록 하기</button>
     </form>
+
+    <a class="home-link" href="http://localhost:8080/index.html">홈으로</a>
 </div>
 
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,6 +69,23 @@
         .apply-btn:hover {
             background-color: #0056b3;
         }
+
+        /* 홈으로 링크 추가된 스타일 시작 */
+        a.home-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        a.home-link:hover {
+            background-color: #333;
+        }
+        /* 홈으로 링크 추가된 스타일 끝 */
     </style>
 </head>
 <body>
@@ -78,11 +95,9 @@
     <p th:text="${description}"> 설명 </p>
     <p>3대 중량 :<div class="weigh_sum" th:text="${weight_sum}" >가격</div></p>
     <p>전화번호 : <div th:text="${phone_number}">폰 번호</div> </p>
-    <p>원하는 성멸 <div th:text="${want_gender}">원하는 성별 </div>: </p>
-
+    <p>원하는 성별 <div th:text="${want_gender}">원하는 성별 </div>: </p>
 
     <form action="match-partner" method="post">
-
         <p class="id-label">ID:</p>
         <input type="text" class="input-field" id="id" name="id" placeholder="Enter your ID">
 
@@ -91,7 +106,8 @@
         <input type="hidden" name="post_id" th:value="${post_id}">
         <button type="submit" class="apply-btn">등록 하기</button>
     </form>
-</div>
 
+    <a class="home-link" href="http://localhost:8080/index.html">홈으로</a>
+</div>
 </body>
 </html>

@@ -11,7 +11,6 @@
             background-color: #f4f4f4;
         }
 
-
         .post {
             background-color: #fff;
             padding: 20px;
@@ -41,10 +40,23 @@
             color: #e44d26;
         }
 
+        .home-link {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            transition: background-color 0.3s ease-in-out;
+        }
 
+        .home-link:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
+<a class="home-link" href="http://localhost:8080/index.html">홈으로</a>
 <div class="post">
     <div th:each="post : ${postList}" class="post">
         <a th:href="@{'http://localhost:8080/pt-post-detali?post_id=' + ${post.post_id}}" class="post-link">

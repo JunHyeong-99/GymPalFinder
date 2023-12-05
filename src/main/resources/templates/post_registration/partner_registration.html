@@ -22,6 +22,13 @@
             padding: 8px;
             box-sizing: border-box;
         }
+        .gender-label {
+            display: flex;
+            align-items: center;
+        }
+        .gender-label input {
+            margin-right: 5px;
+        }
         button {
             padding: 10px;
             background-color: #4CAF50;
@@ -29,11 +36,36 @@
             border: none;
             cursor: pointer;
         }
+        .gender-label input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #4CAF50;
+            outline: none;
+            margin-right: 8px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gender-label input[type="radio"]:checked {
+            background-color: #4CAF50;
+        }
+
+        .gender-label input[type="radio"]:checked::before {
+            content: '\2713';
+            font-size: 14px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 <body>
 
-<form  action = "partner-post" method="post">
+<form  action="partner-post" method="post">
     <label for="email">이메일:</label>
     <input type="email" id="email" name="email" required>
 
@@ -49,11 +81,13 @@
     <label for="weight_sum">3대 중량:</label>
     <input type="number" id="weight_sum" name="weight_sum" required>
 
-    <label>원하는 성별:</label>
-    <input type="radio" id="male" name="gender" value="male" required>
-    <label for="male">남자</label>
-    <input type="radio" id="female" name="gender" value="female" required>
-    <label for="female">여자</label>
+    <label class="gender-label">원하는 성별:
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">남자</label>
+
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">여자</label>
+    </label>
 
     <button type="submit">등록하기</button>
 </form>

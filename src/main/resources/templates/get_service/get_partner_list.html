@@ -22,20 +22,33 @@
             margin-bottom: 20px;
         }
 
-        .toggle-button {
+        .toggle-button,
+        .home-link {
             padding: 8px 16px;
             margin: 0 8px;
             cursor: pointer;
             border: none;
             border-radius: 4px;
             font-size: 14px;
+            text-decoration: none;
+        }
+
+        .toggle-button {
             background-color: #4CAF50;
             color: white;
-            text-decoration: none;
         }
 
         .toggle-button:hover {
             background-color: #45a049;
+        }
+
+        .home-link {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .home-link:hover {
+            background-color: #0056b3;
         }
 
         .post {
@@ -70,9 +83,10 @@
 </head>
 <body>
 <div class="toggle-buttons">
-    <a href="http://localhost:8080/partner-post-list" class="toggle-button" >전체</a>
-    <a href="http://localhost:8080/partner-post-list/male" class="toggle-button" >남자</a>
-    <a href="http://localhost:8080/partner-post-list/female" class="toggle-button" >여자</a>
+    <a href="http://localhost:8080/partner-post-list" class="toggle-button">전체</a>
+    <a href="http://localhost:8080/partner-post-list/male" class="toggle-button">남자</a>
+    <a href="http://localhost:8080/partner-post-list/female" class="toggle-button">여자</a>
+    <a class="home-link" href="http://localhost:8080/index.html">홈으로</a>
 </div>
 <div class="post-container">
     <div th:each="post : ${postList}" class="post">

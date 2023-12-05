@@ -35,7 +35,11 @@ public class MatchingService {
         else { // customer 구하고 trainer 구하고 matching에 넣기
             Optional<Customer> customer = customerRepository.findByEmail(ptMatchDto.getUser_id());
             Optional<PtPost> ptPost = ptPostRepository.findById(ptMatchDto.getPost_id());
-
+            if(ptPost.isEmpty() || customer.isPresent()) return false;
+            Optional<PtMatching> originMatch = ptMatchingRepository.findByTrainerAndCoustomer(ptPost.get().getPtTrainer(), customer.get());
+            if(originMatch.isPresent()) {
+                return false;
+            }
             ptMatchingRepository.save(PtMatching.builder()
                     .ptCustomer(customer.get())
                     .ptTrainer(ptPost.get().getPtTrainer())
@@ -43,22 +47,28 @@ public class MatchingService {
             return true;
         }
     }
-    public boolean matchPartner(PartnerMatchDto partnerMatchDto) {
+    public String matchPartner(PartnerMatchDto partnerMatchDto) {
         if(!authService.isLogin(LoginDto.builder() // 로그인 실패한 경우
                 .email(partnerMatchDto.getUser_id())
                 .password(partnerMatchDto.getUser_pwd()).build())){
-            return false;
+            return "아이디, 비밀번호가 일치하지 않습니다.";
         }
         else { // customer 구하고 trainer 구하고 matching에 넣기
             Optional<PartnerUser> partnerUser = partnerUserRepository.findByEmail(partnerMatchDto.getUser_id());
             Optional<PartnerPost> partnerPost = partnerPostRepository.findById(partnerMatchDto.getPost_id());
-
+            if(partnerUser.isEmpty() || partnerPost.isEmpty()) return "post가 존재하지 않습니다.";
+            PartnerUser registerUser = partnerPost.get().getRegisterUser();
+            Optional<PartnerMatching> originMatch1 = partnerMatchingRepository.findByUser1AndUser2(partnerUser.get().getId(), registerUser.getId());
+            Optional<PartnerMatching> originMatch2 = partnerMatchingRepository.findByUser1AndUser2(registerUser.getId(), partnerUser.get().getId());
+            if (originMatch1.isPresent() || originMatch2.isPresent()) {
+                return "이미 등록된 match입니다.";
+            }
             // PartnerMatching은 2개를 만들어 각 user에 할당을 해주어야 한다.
             partnerMatchingRepository.save(PartnerMatching.builder()
-                    .user1(partnerPost.get().getRegisterUser().getId())
+                    .user1(registerUser.getId())
                     .user2(partnerUser.get().getId())
                     .build());
-            return true;
+            return "매칭이 등록되었습니다.";
         }
     }
     

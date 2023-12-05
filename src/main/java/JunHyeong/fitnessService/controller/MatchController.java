@@ -44,16 +44,12 @@ public class MatchController {
     }
     @PostMapping("/match-partner")
     public String match_partner(HttpServletRequest httpServletRequest, Model model) {
-        if (matchingService.matchPartner(PartnerMatchDto.builder()
+
+        model.addAttribute("message", matchingService.matchPartner(PartnerMatchDto.builder()
                 .post_id(Long.parseLong(httpServletRequest.getParameter("post_id")))
                 .user_id(httpServletRequest.getParameter("id"))
                 .user_pwd(httpServletRequest.getParameter("password"))
-                .build())) {
-            model.addAttribute("message", "회원님과 매치되셨습니다.");
-        }
-        else {
-            model.addAttribute("message", "회원님과 매치에 실패했습니다.");
-        }
+                .build()));
         return "state";
     }
 

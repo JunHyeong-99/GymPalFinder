@@ -27,7 +27,6 @@ public class Review {
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 
-
     public ReviewResponseDto toResponsePostDto() {
         return ReviewResponseDto.builder()
                 .review_id(this.id)
