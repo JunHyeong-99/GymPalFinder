@@ -50,7 +50,19 @@
             <button class="delete-button" type = "submit">삭제</button>
         </form>
     </div>
-    <a href = "http://localhost:8080/index.html">홈으로</a>
+    <div class="post" th:each="match, iterStat : ${matchList}">
+        <th:block th:if="${iterStat.index == 0}">
+            <form th:action="@{/my-review-page}" method="get">
+                <input type="hidden" name="match_id" th:value="${match.match_id}" />
+                <button class="load_review" type="submit">내 리뷰 보기</button>
+            </form>
+        </th:block>
+
+        <th:block th:if="${iterStat.index == 0}">
+            <a th:href="@{/index.html}">홈으로</a>
+        </th:block>
+    </div>
+
 </div>
 
 </body>

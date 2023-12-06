@@ -36,7 +36,7 @@ public class MatchingService {
         else { // customer 구하고 trainer 구하고 matching에 넣기
             Optional<Customer> customer = customerRepository.findByEmail(ptMatchDto.getUser_id());
             Optional<PtPost> ptPost = ptPostRepository.findById(ptMatchDto.getPost_id());
-            if(ptPost.isEmpty() || customer.isPresent()) return "존재하지 않는 post입니다.";
+            if(ptPost.isEmpty() || customer.isEmpty()) return "존재하지 않는 post입니다.";
             Optional<PtMatching> originMatch = ptMatchingRepository.findByTrainerAndCoustomer(ptPost.get().getPtTrainer(), customer.get());
             if(originMatch.isPresent()) {
                 return "이미 등록된 match입니다.";

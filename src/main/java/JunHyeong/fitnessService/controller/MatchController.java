@@ -19,6 +19,7 @@ public class MatchController {
     private final MatchingService matchingService;
     @PostMapping("/match-pt")
     public String match_pt(HttpServletRequest httpServletRequest, Model model) {
+        System.out.println("testes" + httpServletRequest.getParameter("post_id"));
         model.addAttribute("message", matchingService.matchPt(PtMatchDto.builder()
                 .post_id(Long.parseLong(httpServletRequest.getParameter("post_id")))
                 .user_id(httpServletRequest.getParameter("id"))

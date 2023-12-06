@@ -2,11 +2,9 @@ package JunHyeong.fitnessService.service;
 
 
 import JunHyeong.fitnessService.dto.MypageDto;
+import JunHyeong.fitnessService.dto.ReviewRequestDto;
 import JunHyeong.fitnessService.entity.*;
-import JunHyeong.fitnessService.repository.CustomerRepository;
-import JunHyeong.fitnessService.repository.PartnerMatchingRepository;
-import JunHyeong.fitnessService.repository.PartnerUserRepository;
-import JunHyeong.fitnessService.repository.TrainerRepository;
+import JunHyeong.fitnessService.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +22,7 @@ public class MypageService {
     private final CustomerRepository customerRepository;
     private final PartnerUserRepository partnerUserRepository;
     private final PartnerMatchingRepository partnerMatchingRepository;
-
+    private final ReviewRepository reviewRepository;
     public List<MypageDto> trainer_mypage(String email) {
         List<MypageDto> mypageList = new ArrayList<>();
         Optional<Trainer> trainer = trainerRepository.findByEmail(email);

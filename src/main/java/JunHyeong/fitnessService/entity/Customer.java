@@ -35,4 +35,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "ptCustomer", cascade = CascadeType.ALL)
     private List<PtMatching> myTrainerList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Review> myReview = new ArrayList<>();
 }

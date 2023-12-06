@@ -108,4 +108,6 @@ public class GetController {
         model.addAttribute("post_id", post_id);
         return "get_service/partner_post_Detail";
     }
+
+
 }

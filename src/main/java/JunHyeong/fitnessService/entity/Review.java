@@ -27,11 +27,17 @@ public class Review {
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
 
+
+    @ManyToOne
+    @JoinColumn(name ="customer_id")
+    private Customer customer;
+
     public ReviewResponseDto toResponsePostDto() {
         return ReviewResponseDto.builder()
                 .review_id(this.id)
                 .body(this.body)
                 .point(this.point)
+                .customer(this.customer)
                 .build();
     }
 
